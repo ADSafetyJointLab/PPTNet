@@ -122,5 +122,13 @@ python train.py
   <img src="assets/P(A)_result.png" alt="P(A)" width="60%" />
 </p>
 
+---
+
+## Acknowledgment
+This work was supported in part by the Science and Technology Development Program of Jilin Province under Grant 20240302052GX and in part by the National Natural Science Foundation of China under Grant 52075213.  
+This library is inspired by [AD4CHE](https://github.com/ADSafetyJointLab/AD4CHE), [Time-Series-Library](https://github.com/thuml/Time-Series-Library) and many other related works, we thank them for sharing the code and datasets.
+
+
+
 
 
