@@ -112,8 +112,15 @@ python train.py
 | *Improvement&nbsp;(%)* | &darr; 5.53 | &uarr; 12.94 | &uarr; 6.92 | &uarr; 2.10 | &uarr; 17.50 | &uarr; 9.32 | &darr; 7.32 | &uarr; 10.71 | &uarr; 4.96 |
 
 
+<p align="center">
+  <img src="assets/PPTNet_kt.png" alt="Kt" width="45%" />
+  <img src="assets/PPTNet_v.png" alt="v" width="45%" />
+</p>
 
-
+### Congestion Identification
+<p align="center">
+  <img src="assets/P(A)_result.png" alt="P(A)" width="60%" />
+</p>
 
 
 
