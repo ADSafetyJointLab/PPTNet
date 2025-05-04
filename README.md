@@ -60,16 +60,58 @@ The **TF4CHE** (Traffic Flow Dataset for China’s Congested Highways & Expressw
 > **Note:** TF4CHE converts per-frame trajectory data (`xx_tracks.csv`) and metadata (`xx_recordingMeta.csv`, `xx_tracksMeta.csv`) into uniformly spaced time-series, applying conversion formulas from rail transit theory to compute densities, flows, and occupancy, thus streamlining downstream forecasting tasks.
 
 
-- **Downloads**
+- **Downloads**  
   We provide download link from Google Drive and Baidu Yunpan to facilate users from all over the world.
   - **[Baidu Yunpan](https://pan.baidu.com/s/170RxFKCbPo0PCzDMVRyFNw?pwd=xrvr)**&emsp;Extraction code&nbsp;:&nbsp;`xrvr`
-  - **[Google Drive](https://drive.google.com/drive/folders/18WgRAeoeCMSkDBpFw9REE17ISUBAf2qC?usp=sharing)**
+  - **[Google Drive](https://drive.google.com/file/d/1ez4AZ3MwptR3wzw0nWTzKQ0iYbprS7n-/view?usp=sharing)**
+ 
+- **Preparation**  
+  You should refer to the `preprocess.py` and change your `input_dir`、`utput_dir` path. And divide the original TF4CHE dataset into 'train', 'val', and 'test'.
+```python
+python preprocess.py
+```
 
 <p align="center">
   <img src="assets/TF4CHE construction.png" alt="TF4CHE" />
 </p>
 
 ---
+
+## Train
+
+You should refer to the `config.py` and change your `raw_data_path`、 `processed_data_path` and `pred_dir` path. And start predicting network training
+
+```python
+python train.py
+```
+---
+## Results
+
+### Prediction
+#### Performance comparison between PPTNet and mainstream prediction models at different prediction horizons  
+
+*<strong>Bold</strong> denotes the best result, <u>underline</u> denotes the best result of previous methods, &uarr; denotes performance improvement, and &darr; denotes performance degradation.*
+
+| Model | MAE&nbsp;@15 | MSE&nbsp;@15 | RMSE&nbsp;@15 | MAE&nbsp;@30 | MSE&nbsp;@30 | RMSE&nbsp;@30 | MAE&nbsp;@45 | MSE&nbsp;@45 | RMSE&nbsp;@45 |
+|-------|-------------|-------------|--------------|-------------|-------------|--------------|-------------|-------------|--------------|
+| LSTM | 0.1719 | 0.0477 | 0.2184 | 0.2517 | 0.0954 | 0.3088 | 0.2911 | 0.1179 | 0.3433 |
+| RNN | 0.1528 | 0.0316 | 0.1776 | 0.2747 | 0.0997 | 0.3157 | 0.2993 | 0.1201 | 0.3465 |
+| ConvLSTM | 0.1362 | 0.0236 | 0.1535 | 0.2372 | 0.0772 | 0.2779 | 0.2747 | 0.1010 | 0.3179 |
+| Bi‑LSTM | 0.1703 | 0.0410 | 0.2024 | 0.1908 | 0.0544 | 0.2331 | 0.2425 | 0.0929 | 0.3084 |
+| GRU | 0.1106 | 0.0184 | 0.1356 | 0.1816 | 0.0442 | 0.2102 | 0.2060 | 0.0606 | 0.2462 |
+| CNN | 0.1117 | 0.0166 | 0.1287 | 0.1623 | 0.0345 | 0.1857 | 0.1666 | 0.0358 | 0.1891 |
+| TCN | 0.1036 | 0.0174 | 0.1319 | 0.0934 | 0.0151 | 0.1230 | 0.1547 | 0.0374 | 0.1934 |
+| ConvGRU | 0.0883 | 0.0119 | 0.1091 | 0.1224 | 0.0202 | 0.1420 | 0.1061 | 0.0167 | 0.1291 |
+| LSSL | 0.0859 | 0.0095 | 0.0973 | 0.0763 | 0.0078 | 0.0882 | 0.1333 | 0.0237 | 0.1539 |
+| Transformer | 0.0946 | 0.0125 | 0.1117 | 0.0677 | 0.0069 | 0.0828 | 0.1379 | 0.0296 | 0.1721 |
+| Reformer | 0.0955 | 0.0110 | 0.1049 | 0.0558 | 0.0044 | 0.0664 | 0.0711 | 0.0073 | 0.0854 |
+| FEDformer | 0.0973 | 0.0087 | 0.0934 | 0.0566 | 0.0048 | 0.0693 | 0.0670 | 0.0065 | 0.0809 |
+| LSTNet | 0.0856 | 0.0094 | 0.0972 | <ins>0.0523</ins> | <ins>0.0040</ins> | <ins>0.0633</ins> | 0.0645 | 0.0059 | 0.0768 |
+| TimesNet | **<ins>0.0778</u>** | <ins>0.0085</ins> | <ins>0.0925</ins> | 0.0573 | 0.0048 | 0.0690 | **<ins>0.0615</ins>** | <ins>0.0056</ins> | <ins>0.0746</ins> |
+| **PPTNet&nbsp;(Ours)** | 0.0821 | **0.0074** | **0.0861** | **0.0512** | **0.0033** | **0.0574** | 0.0660 | **0.0050** | **0.0709** |
+| *Improvement&nbsp;(%)* | &darr; 5.53 | &uarr; 12.94 | &uarr; 6.92 | &uarr; 2.10 | &uarr; 17.50 | &uarr; 9.32 | &darr; 7.32 | &uarr; 10.71 | &uarr; 4.96 |
+
+
 
 
 
